@@ -11,14 +11,13 @@
   <body>
     <ul class="topnav">
       <li><a  href="index.html">Home</a></li>
-      <li><a class="active" href="add-question.html">Add questions</a></li>
-      <li><a href="make-a-quiz.html">Create a quiz</a></li>
-      <li><a href="take-a-quiz.html">Take a quiz</a></li>
+      <li><a class="active" href="add-question.html">Add Questions</a></li>
+      <li><a href="make-a-quiz.html">Create a Quiz</a></li>
+      <li><a href="take-a-quiz.html">Take a Quiz</a></li>
       <li class="right"><a href="#about">About</a></li>
     </ul>
 
     <form>
-      <!-- Question Text -->
       <label for="questionText">Question:</label><br />
       <textarea
         id="questionText"
@@ -26,10 +25,10 @@
         rows="4"
         cols="50"
         required
-      ></textarea
-      ><br />
+      >
+      </textarea>
+      <br/>
 
-      <!-- Image Upload -->
       <label for="imageUpload">Image:</label><br />
       <input
         type="file"
@@ -59,7 +58,7 @@
     <div id="list" class="cards"></div>
 
     <script>
-      let host = "http://localhost:8080";
+      let host = "https://midterm-latest-ktem.onrender.com";
       let questions = [];
       displayTheQuestions();
 
@@ -82,21 +81,21 @@
           div.className = "card";
           let innerHtml = `
          
-        <img src="http://localhost:8080/questions/${question.id}/image" alt="question" style="width:100%">
-        <div class="container">
-          <h4><b>${question.id}</b></h4> 
-          <p>${question.description}</p>
-          <form>
-              <input type="radio" id="q${question.id}ptionA" name="q2Answer" value="A">
-              <label for="q${question.id}ptionA">${question.choices[0]}</label><br>
+          <img src="https://midterm-latest-ktem.onrender.com/questions/${question.id}/image" alt="question" style="width:100%">
+          <div class="container">
+            <h4><b>${question.id}</b></h4> 
+            <p>${question.description}</p>
+            <form>
+                <input type="radio" id="q${question.id}ptionA" name="q2Answer" value="A">
+                <label for="q${question.id}ptionA">${question.choices[0]}</label><br>
 
-              <input type="radio" id="q${question.id}ptionB" name="q2Answer" value="B">
-              <label for="q${question.id}ptionB">${question.choices[1]}</label><br>
+                <input type="radio" id="q${question.id}ptionB" name="q2Answer" value="B">
+                <label for="q${question.id}ptionB">${question.choices[1]}</label><br>
 
-              <input type="radio" id="q${question.id}ptionC" name="q2Answer" value="C">
-              <label for="q${question.id}ptionC">${question.choices[2]}</label><br>       
-          </form> 
-        </div>
+                <input type="radio" id="q${question.id}ptionC" name="q2Answer" value="C">
+                <label for="q${question.id}ptionC">${question.choices[2]}</label><br>       
+            </form> 
+          </div>
      
             `;
           div.innerHTML = innerHtml;
@@ -107,7 +106,6 @@
       function add() {
         let form = document.forms[0];
         let formData = new FormData(form);
-        // output as an object
         let data = Object.fromEntries(formData);
         let question = {};
         question.description = data.description;

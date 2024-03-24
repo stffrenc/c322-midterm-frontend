@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Take a Quiz</title>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="quiz.css">
 </head>
+
 <body>
-  
+  <ul class="topnav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="add-question.html">Add Questions</a></li>
+    <li><a href="make-a-quiz.html">Create a Quiz</a></li>
+    <li><a class="active" href="take-a-quiz.html">Take a Quiz</a></li>
+    <li class="right"><a href="#about">About</a></li>
+  </ul>
+  <div id="quizList"></div>
+
+  <script>
+    let quizzes = [];
+    document.addEventListener('DOMContentLoaded', fetchQuizzes);
+
+    async function fetchQuizzes() {
+      try {
+        const response = await fetch('https://midterm-latest-ktem.onrender.com/quizzes');
+        if (!response.ok) {
+          throw new Error('Failed to fetch quizzes');
+        }
+        quizzes = await response.json();
+        displayQuizzes();
+      } catch (error) {
+        console.error('Error fetching quizzes:', error);
+      }
+    }
+
+    function displayQuizzes() {
+      const quizListDiv = document.getElementById('quizList');
+      quizzes.forEach(quiz => {
+        const questionsCount = Array.isArray(quiz.questions) ? quiz.questions.length : 0;
+        const quizDiv = document.createElement('div');
+        quizDiv.className = 'quiz';
+        quizDiv.innerHTML = `${quiz.title} (${questionsCount} questions)`;
+        quizDiv.onclick = () => {
+        const url = `quiz.html?quizId=${quiz.id}`;
+        window.location.href = url;
+      };
+      quizListDiv.appendChild(quizDiv);
+      });
+    }
+  </script>
 </body>
 </html>
